@@ -1,6 +1,7 @@
 import pytest
 
 from .linked_list import LinkedList, Node
+from .sum_lists import sum_lists, LengthsAreNotEqual
 
 
 @pytest.fixture
@@ -241,3 +242,26 @@ def test_insert_as_a_head_if_list_is_empty(s_list):
     assert new_node.next is None
     assert s_list.head == new_node
     assert s_list.tail == new_node
+
+
+def test_sum_lists_raise_exception_if_lens_of_lists_are_not_equal():
+    list1 = LinkedList()
+    list2 = LinkedList()
+    list2.add_in_tail(Node(1))
+
+    with pytest.raises(LengthsAreNotEqual):
+        sum_lists(list1, list2)
+
+
+def test_sum_lists_return_sums_if_lists_are_not_empty():
+    list1 = LinkedList()
+    list1.add_in_tail(Node(1))
+    list1.add_in_tail(Node(2))
+    list2 = LinkedList()
+    list2.add_in_tail(Node(3))
+    list2.add_in_tail(Node(4))
+
+    result_list = sum_lists(list1, list2)
+
+    assert result_list.head.value == 4
+    assert result_list.tail.value == 6
