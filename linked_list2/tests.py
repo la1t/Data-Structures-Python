@@ -207,11 +207,11 @@ def test_insert_if_after_node_is_None_and_list_is_not_empty(s_list):
 
     s_list.insert(None, inserted)
 
-    assert s_list.head == inserted
-    assert s_list.tail == tail
-    assert inserted.prev is None
-    assert inserted.next == head
-    assert head.prev == inserted
+    assert s_list.head == head
+    assert s_list.tail == inserted
+    assert inserted.prev == tail
+    assert inserted.next is None
+    assert tail.next == inserted
 
 
 def test_insert_if_after_node_in_the_middle(s_list):
