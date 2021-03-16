@@ -11,7 +11,8 @@ def calculate_postfix(input_stack):
         if isinstance(current, int):
             calc_stack.push(current)
         elif current in ARITHMETIC_OPS:
-            op1, op2 = calc_stack.pop(), calc_stack.pop()
+            op1 = calc_stack.pop()
+            op2 = calc_stack.pop()
             if op1 is None or op2 is None:
                 raise ValueError('Operation before operands')
             calc_stack.push(execute_op(op1, op2, current))
