@@ -1,21 +1,20 @@
 class Node:
-    is_countable = True
 
     def __init__(self, v):
         self.value = v
         self.prev = None
         self.next = None
+        self.is_countable = True
     
     def has_value(self, v):
         return self.value == v
 
 
-class DummyNode(Node):
-    is_countable = False
-    
+class DummyNode(Node):    
     def __init__(self):
         self.prev = None
         self.next = None
+        self.is_countable = False
 
     def has_value(self, v):
         return False
