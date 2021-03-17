@@ -6,11 +6,7 @@ def is_palindrome(a_string):
     for symb in a_string:
         deque.addTail(symb)
     
-    first_symb = deque.removeFront()
-    last_symb = deque.removeTail()
-    while last_symb is not None:
-        if first_symb != last_symb:
+    while deque.size() > 1:
+        if deque.removeFront() != deque.removeTail():
             return False
-        first_symb = deque.removeFront()
-        last_symb = deque.removeTail()
     return True
