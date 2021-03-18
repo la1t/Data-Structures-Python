@@ -5,8 +5,8 @@ class HashTable:
         self.slots = [None] * self.size
 
     def hash_fun(self, value):
-         value_bytes = list(value.encode('utf-8'))
-         return sum(value_bytes) % self.size
+        value_bytes = list(value.encode('utf-8'))
+        return sum(value_bytes) % self.size
 
     def seek_slot(self, value):
         value_hash = self.hash_fun(value)
