@@ -62,7 +62,9 @@ class PowerSet:
                 return False
         return True
     
-    def __eq__(self, o: object) -> bool:
+    def __eq__(self, o: 'PowerSet') -> bool:
+        if not isinstance(o, PowerSet):
+            raise ValueError("Can't check equality for not `PowerSet` instance")
         return self.issubset(o) and o.issubset(self)
 
     def get_all_items(self):
