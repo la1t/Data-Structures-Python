@@ -38,13 +38,10 @@ class PowerSet:
     def union(self, set2):
         # объединение текущего множества и set2
         result = PowerSet()
-        __counter = 0
         for value in self.get_all_items():
             result.put(value)
-            __counter += 1
         for value in set2.get_all_items():
             result.put(value)
-            __counter += 1
         
         return result
 
