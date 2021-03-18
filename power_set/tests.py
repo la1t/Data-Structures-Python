@@ -143,10 +143,10 @@ def test_remove_return_False_if_item_does_not_exist():
 
 
 def test_intersection_returns_items_that_exists_in_both_of_the_sets(ab_set, ac_set, a_set, empty_set):
-    assert ab_set.intersection(ac_set) == a_set
-    assert ac_set.intersection(ab_set) == a_set
-    assert ab_set.intersection(empty_set) == empty_set
-    assert empty_set.intersection(ab_set) == empty_set
+    assert ab_set.intersection(ac_set).equals(a_set)
+    assert ac_set.intersection(ab_set).equals(a_set)
+    assert ab_set.intersection(empty_set).equals(empty_set)
+    assert empty_set.intersection(ab_set).equals(empty_set)
 
 
 def test_load_intersection():
@@ -158,11 +158,11 @@ def test_load_intersection():
 
 
 def test_union_returns_items_that_exist_in_at_least_one_of_the_sets(ab_set, ac_set, abc_set, empty_set):
-    assert ab_set.union(ac_set) == abc_set
-    assert ac_set.union(ab_set) == abc_set
+    assert ab_set.union(ac_set).equals(abc_set)
+    assert ac_set.union(ab_set).equals(abc_set)
 
-    assert ab_set.union(empty_set) == ab_set
-    assert empty_set.union(ab_set) == ab_set
+    assert ab_set.union(empty_set).equals(ab_set)
+    assert empty_set.union(ab_set).equals(ab_set)
 
 
 def test_load_union():
@@ -174,14 +174,14 @@ def test_load_union():
 
 
 def test_difference_return_items_that_exist_in_first_one_and_do_not_exist_in_second_one(ab_set, ac_set, a_set, b_set, c_set, ce_set, empty_set):
-    assert ab_set.difference(ac_set) == b_set
-    assert ac_set.difference(ab_set) == c_set
+    assert ab_set.difference(ac_set).equals(b_set)
+    assert ac_set.difference(ab_set).equals(c_set)
 
-    assert ab_set.difference(ce_set) == ab_set
-    assert ce_set.difference(ab_set) == ce_set
+    assert ab_set.difference(ce_set).equals(ab_set)
+    assert ce_set.difference(ab_set).equals(ce_set)
     
-    assert b_set.difference(ab_set) == empty_set
-    assert ab_set.difference(b_set) == a_set
+    assert b_set.difference(ab_set).equals(empty_set)
+    assert ab_set.difference(b_set).equals(a_set)
 
 
 def test_difference_load():
