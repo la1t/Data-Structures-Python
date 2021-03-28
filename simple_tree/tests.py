@@ -1,6 +1,7 @@
 import pytest
 
 from .simple_tree import SimpleTree, SimpleTreeNode
+from .enrich_levels import enrich_levels
 
 
 @pytest.fixture(scope="function")
@@ -134,3 +135,11 @@ def test_leaf_count_if_tree_is_empty():
     tree = SimpleTree(None)
 
     assert tree.LeafCount() == 0
+
+
+def test_enrich_levels(tree, root, nodes_lvl_1, nodes_lvl_2_1):
+    enrich_levels(tree)
+    
+    assert root.Level == 0
+    assert all(node.Level == 1 for node in nodes_lvl_1)
+    assert all(node.Level == 2 for node in nodes_lvl_2_1)

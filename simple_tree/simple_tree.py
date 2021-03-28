@@ -4,6 +4,7 @@ class SimpleTreeNode:
         self.NodeValue = val # значение в узле
         self.Parent = parent # родитель или None для корня
         self.Children = [] # список дочерних узлов
+        self.Level = None
 	
 class SimpleTree:
 
