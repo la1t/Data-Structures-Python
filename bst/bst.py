@@ -91,7 +91,7 @@ class BST:
         if not find_result.NodeHasKey:
             return False
         node_to_delete = find_result.Node
-        # fixme: there is no parent
+
         SIDE_LEFT = 'left'
         SIDE_RIGHT = 'right'
         SIDE_NONE = 'none'
@@ -132,7 +132,6 @@ class BST:
                 node_to_swap.RightChild.Parent = node_to_swap.Parent
 
         # 4.1.
-        # fixme: node_to_delete without parent
         if delete_side == SIDE_RIGHT:
             node_to_delete.Parent.RightChild = node_to_swap
         elif delete_side == SIDE_LEFT:
