@@ -96,8 +96,9 @@ def test_find_if_tree_is_empty():
 
 
 def test_add_if_new_item_must_be_left(tree, nodes_lvl_2_1):
-    tree.AddKeyValue(19, '19')
+    result = tree.AddKeyValue(19, '19')
     
+    assert result
     assert nodes_lvl_2_1[0].LeftChild is not None
     new_node = nodes_lvl_2_1[0].LeftChild
     assert new_node.Parent == nodes_lvl_2_1[0]
@@ -108,8 +109,9 @@ def test_add_if_new_item_must_be_left(tree, nodes_lvl_2_1):
 
 
 def test_add_if_new_item_must_be_right(tree, nodes_lvl_2_1):
-    tree.AddKeyValue(21, '21')
+    result = tree.AddKeyValue(21, '21')
 
+    assert result
     assert nodes_lvl_2_1[0].RightChild is not None
     new_node = nodes_lvl_2_1[0].RightChild
     assert new_node.Parent == nodes_lvl_2_1[0]
@@ -120,8 +122,9 @@ def test_add_if_new_item_must_be_right(tree, nodes_lvl_2_1):
 
 
 def test_add_if_item_already_exists(tree, nodes_lvl_2_1):
-    tree.AddKeyValue(20, 'new value')
+    result = tree.AddKeyValue(20, 'new value')
 
+    assert not result
     assert nodes_lvl_2_1[0].LeftChild is None
     assert nodes_lvl_2_1[0].RightChild is None
     assert nodes_lvl_2_1[0].NodeValue == '20'

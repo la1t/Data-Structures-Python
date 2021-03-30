@@ -54,7 +54,7 @@ class BST:
     def AddKeyValue(self, key, val):
         find_result = self.FindNodeByKey(key)
         if find_result.NodeHasKey:
-            return
+            return False
 
         new_node = BSTNode(key, val, find_result.Node)
         if find_result.Node is None:
@@ -64,6 +64,7 @@ class BST:
                 find_result.Node.LeftChild = new_node
             else:
                 find_result.Node.RightChild = new_node
+        return True
   
     def FinMinMax(self, FromNode, FindMax):
         node = FromNode
