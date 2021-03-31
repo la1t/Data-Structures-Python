@@ -10,9 +10,12 @@ class SimpleTree:
 
     def __init__(self, root):
         self.Root = root # корень, может быть None
+        if root is not None:
+            self.Root.Level = 0
 	
     def AddChild(self, ParentNode, NewChild):
         NewChild.Parent = ParentNode
+        NewChild.Level = ParentNode.Level + 1
         ParentNode.Children.append(NewChild)
   
     def DeleteNode(self, NodeToDelete):

@@ -56,6 +56,7 @@ def test_add_child():
 
     assert root.Children == [new_node]
     assert new_node.Parent == root
+    assert new_node.Level == 1
 
 
 def test_delete_node():
