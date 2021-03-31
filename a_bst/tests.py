@@ -5,7 +5,7 @@ from .a_bst import aBST
 
 @pytest.fixture
 def a_bst():
-    a_bst = aBST(3)
+    a_bst = aBST(2)
     a_bst.Tree = [
         50,
         25, 75,
@@ -17,14 +17,14 @@ def a_bst():
 
 @pytest.fixture
 def empty_a_bst():
-    return aBST(3)
+    return aBST(2)
 
 
 @pytest.mark.parametrize(
     'depth,expected_tree_size', [
-        (1, 1),
-        (2, 3),
-        (4, 15),
+        (0, 1),
+        (1, 3),
+        (3, 15),
     ]
 )
 def test_calc_tree_size(depth, expected_tree_size):
@@ -41,13 +41,6 @@ def test_calc_tree_size(depth, expected_tree_size):
     ]
 )
 def test_find_key_index(key, expected_index, a_bst):
-    # a_bst = aBST(3)
-    # a_bst.Tree = [
-    #     50,
-    #     25, 75,
-    #     20, 30, 70, 80,
-    # ]
-
     assert a_bst.FindKeyIndex(key) == expected_index
 
 
@@ -71,7 +64,7 @@ def test_add_key_into_empty_a_bst(empty_a_bst):
     ]
 )
 def test_add_key_to_last_lvl(key, expected_index):
-    a_bst = aBST(3)
+    a_bst = aBST(2)
     a_bst.Tree = [
         50,
         25, 75,

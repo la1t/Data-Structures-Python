@@ -29,7 +29,7 @@ class aBST:
 
     @staticmethod
     def calc_tree_size(depth):
-        return sum(2 ** n for n in range(depth))
+        return sum(2 ** n for n in range(depth + 1))
     
     @staticmethod
     def get_left_child_index(index):
