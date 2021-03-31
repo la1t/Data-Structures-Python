@@ -35,9 +35,9 @@ def test_calc_tree_size(depth, expected_tree_size):
     'key,expected_index', [
         (50, 0),
         (25, 1),
-        (70, None),
+        (70, -5),
         (80, 6),
-        (90, None)
+        (90, None),
     ]
 )
 def test_find_key_index(key, expected_index, a_bst):
@@ -52,9 +52,10 @@ def test_find_key_index(key, expected_index, a_bst):
 
 
 def test_find_key_index_if_bst_is_empty(empty_a_bst):
-    assert empty_a_bst.FindKeyIndex(50) is None
+    assert empty_a_bst.FindKeyIndex(50) == 0
 
 
+@pytest.mark.skip('undefined behaviour')
 def test_add_key_into_empty_a_bst(empty_a_bst):
     index = empty_a_bst.AddKey(50)
 

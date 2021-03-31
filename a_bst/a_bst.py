@@ -7,30 +7,25 @@ class aBST:
 	
     def FindKeyIndex(self, key):
         # ищем в массиве индекс ключа
-        find_result = self.find(key)
-        return find_result.index if find_result.is_found else None
-
-    def find(self, key):
         current_index = 0
         while self.check_in_bounds(current_index):
             if self.Tree[current_index] is None:
-                return FindResult(current_index, False)
+                return -current_index
             elif self.Tree[current_index] == key:
-                return FindResult(current_index, True)
+                return current_index
             elif self.Tree[current_index] > key:
                 current_index = self.get_left_child_index(current_index)
             else:
                 current_index = self.get_right_child_index(current_index)
-        return FindResult(None, False)
 
     def AddKey(self, key):
-        find_result = self.find(key)
-        if find_result.is_found:
-            return find_result.index
-        if find_result.index is None:
+        index = self.FindKeyIndex(key)
+        if index is None:
             return -1
-        self.Tree[find_result.index] = key
-        return find_result.index
+        if index >= 0:
+            return index
+        self.Tree[-index] = key
+        return -index
 
     @staticmethod
     def calc_tree_size(depth):
