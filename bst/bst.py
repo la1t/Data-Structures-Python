@@ -166,3 +166,63 @@ class BST:
         if node.RightChild is not None:
             result += self.count_subtree(node.RightChild)
         return result
+    
+    def WideAllNodes(self):
+        if self.Root is None:
+            return ()
+        res = []
+        buffer = [self.Root]
+        while len(buffer):
+            node = buffer.pop(0)
+            res.append(node)
+            if node.LeftChild:
+                buffer.append(node.LeftChild)
+            if node.RightChild:
+                buffer.append(node.RightChild)
+        return tuple(res)
+
+    IN_ORDER = 0
+    POST_ORDER = 1
+    PRE_ORDER = 2
+
+    def DeepAllNodes(self, method):
+        if not self.Root:
+            return ()
+        
+        if method == BST.IN_ORDER:
+            res = self.deep_nodes_in_order(self.Root)
+        elif method == BST.POST_ORDER:
+            res = self.deep_nodes_post_order(self.Root)
+        elif method == BST.PRE_ORDER:
+            res = self.deep_nodes_pre_order(self.Root)
+        else:
+            raise ValueError('unexpected method')
+
+        return tuple(res)
+
+    def deep_nodes_in_order(self, node):
+        res = []
+        if node.LeftChild:
+            res += self.deep_nodes_in_order(node.LeftChild)
+        res.append(node)
+        if node.RightChild:
+            res += self.deep_nodes_in_order(node.RightChild)
+        return res
+
+    def deep_nodes_post_order(self, node):
+        res = []
+        if node.LeftChild:
+            res += self.deep_nodes_post_order(node.LeftChild)
+        if node.RightChild:
+            res += self.deep_nodes_post_order(node.RightChild)
+        res.append(node)
+        return res
+    
+    def deep_nodes_pre_order(self, node):
+        res = []
+        res.append(node)
+        if node.LeftChild:
+            res += self.deep_nodes_pre_order(node.LeftChild)
+        if node.RightChild:
+            res += self.deep_nodes_pre_order(node.RightChild)
+        return res

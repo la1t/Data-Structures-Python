@@ -240,3 +240,39 @@ def test_count(tree, root, nodes_lvl_1, nodes_lvl_2_1, nodes_lvl_2_2):
 
 def test_count_if_tree_is_empty(empty_tree):
     return empty_tree.Count() == 0
+
+
+def test_wide_all_nodes(tree, root, nodes_lvl_1, nodes_lvl_2_2):
+    assert tree.WideAllNodes() == (root, *nodes_lvl_1, *nodes_lvl_2_2)
+
+
+def test_wide_all_nodes_if_tree_is_empty(empty_tree):
+    assert empty_tree.WideAllNodes() == ()
+
+
+def test_deep_all_nodes_with_in_order_method(tree, root, nodes_lvl_1, nodes_lvl_2_1, nodes_lvl_2_2):
+    assert tree.DeepAllNodes(BST.IN_ORDER) == (
+        nodes_lvl_2_1[0], nodes_lvl_1[0], nodes_lvl_2_1[1], 
+        root, 
+        nodes_lvl_2_2[0], nodes_lvl_1[1], nodes_lvl_2_2[1]
+    )
+
+
+def test_deep_all_nodes_with_post_order(tree, root, nodes_lvl_1, nodes_lvl_2_1, nodes_lvl_2_2):
+    assert tree.DeepAllNodes(BST.POST_ORDER) == (
+        *nodes_lvl_2_1, nodes_lvl_1[0],
+        *nodes_lvl_2_2, nodes_lvl_1[1],
+        root
+    )
+
+
+def test_deep_all_nodes_with_pre_order(tree, root, nodes_lvl_1, nodes_lvl_2_1, nodes_lvl_2_2):
+    assert tree.DeepAllNodes(BST.PRE_ORDER) == (
+        root,
+        nodes_lvl_1[0], *nodes_lvl_2_1,
+        nodes_lvl_1[1], *nodes_lvl_2_2,
+    )
+
+
+def test_deep_all_nodes_if_tree_is_empty(empty_tree):
+    assert empty_tree.DeepAllNodes(BST.IN_ORDER) == ()

@@ -77,3 +77,6 @@ class SimpleTree:
         for child in node.Children:
             result += self.leaf_count_subtree(child)
         return result
+    
+    def WideAllNodes(self):
+        pass
