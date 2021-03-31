@@ -48,7 +48,6 @@ def test_find_key_index_if_bst_is_empty(empty_a_bst):
     assert empty_a_bst.FindKeyIndex(50) == 0
 
 
-@pytest.mark.skip('undefined behaviour')
 def test_add_key_into_empty_a_bst(empty_a_bst):
     index = empty_a_bst.AddKey(50)
 

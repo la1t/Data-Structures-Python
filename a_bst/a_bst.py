@@ -22,7 +22,7 @@ class aBST:
         index = self.FindKeyIndex(key)
         if index is None:
             return -1
-        if index >= 0:
+        if index > 0:
             return index
         self.Tree[-index] = key
         return -index
@@ -41,6 +41,9 @@ class aBST:
     
     def check_in_bounds(self, index):
         return index < len(self.Tree)
+    
+    def is_empty(self):
+        return self.Tree[0] is None
 
 
 class FindResult:
