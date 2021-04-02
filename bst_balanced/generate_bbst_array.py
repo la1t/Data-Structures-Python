@@ -1,4 +1,6 @@
 def GenerateBBSTArray(a):
+    if not a:
+        return []
     sorted_a = sorted(a)
     depth = calc_min_depth(len(a))
     res = [None] * calc_array_len(depth)
