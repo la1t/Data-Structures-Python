@@ -78,6 +78,7 @@ def assert_tree_is_valid(tree, node=None):
         return
     if node is None:
         node = tree.Root
+        assert node.Level == 1
     
     if node.LeftChild:
         assert node.LeftChild.Parent == node
