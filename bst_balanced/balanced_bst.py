@@ -44,8 +44,10 @@ class BalancedBST:
     def fill_tree(self, parent_node, a):
         if not a:
             return
+        curr_level = parent_node.Level + 1 if parent_node else 1
         mid_index = len(a) // 2
         new_node = BSTNode(a[mid_index], parent_node)
+        new_node.Level = curr_level
         new_node.LeftChild = self.fill_tree(new_node, a[:mid_index])
         new_node.RightChild = self.fill_tree(new_node, a[mid_index + 1:])
         return new_node

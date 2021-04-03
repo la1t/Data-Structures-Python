@@ -27,12 +27,16 @@ def test_generate_bbst_array(orig_list, expected_list):
 
 @pytest.fixture(scope='function')
 def root():
-    return BSTNode(6, None)
+    root = BSTNode(6, None)
+    root.Level = 1
+    return root
 
 
 @pytest.fixture(scope='function')
 def level_1(root):
     level_1 = [BSTNode(3, root), BSTNode(11, root)]
+    level_1[0].Level = 2
+    level_1[1].Level = 2
     root.add_childs(*level_1)
     return level_1
 
@@ -40,6 +44,10 @@ def level_1(root):
 @pytest.fixture(scope='function')
 def level_2(level_1):
     level_2 = [BSTNode(2, level_1[0]), BSTNode(4, level_1[0]), BSTNode(9, level_1[1]), BSTNode(12, level_1[1])]
+    level_2[0].Level = 3
+    level_2[1].Level = 3
+    level_2[2].Level = 3
+    level_2[3].Level = 3
     level_1[0].add_childs(*level_2[:2])
     level_1[1].add_childs(*level_2[2:])
     return level_2
@@ -73,11 +81,13 @@ def assert_tree_is_valid(tree, node=None):
     
     if node.LeftChild:
         assert node.LeftChild.Parent == node
+        assert node.LeftChild.Level == node.Level + 1
         assert node.LeftChild.NodeKey < node.NodeKey
         assert_tree_is_valid(tree, node.LeftChild)
     
     if node.RightChild:
         assert node.RightChild.Parent == node
+        assert node.RightChild.Level == node.Level + 1
         assert node.RightChild.NodeKey >= node.NodeKey
         assert_tree_is_valid(tree, node.RightChild)
 
