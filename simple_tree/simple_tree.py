@@ -83,3 +83,17 @@ class SimpleTree:
     
     def WideAllNodes(self):
         pass
+
+    def EvenTrees(self):
+        """
+        1. Обрезаем все четные поддеревья из корня
+        Для всех обрезанных поддеревьев запускаем EvenTrees, добавляем к результату 
+        """
+        # fixme: нечетное дерево
+        result = []
+        for child in self.Root.Children:
+            subtree = SimpleTree(child)
+            if subtree.Count() % 2 == 0:
+                result += [self.Root, child]
+            result += subtree.EvenTrees()
+        return result

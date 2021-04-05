@@ -144,3 +144,59 @@ def test_enrich_levels(tree, root, nodes_lvl_1, nodes_lvl_2_1):
     assert root.Level == 0
     assert all(node.Level == 1 for node in nodes_lvl_1)
     assert all(node.Level == 2 for node in nodes_lvl_2_1)
+
+
+@pytest.fixture
+def even_example():
+    node_1 = SimpleTreeNode(1, None)
+    tree = SimpleTree(node_1)
+    node_2 = SimpleTreeNode(2, None)
+    tree.AddChild(node_1, node_2)
+    node_3 = SimpleTreeNode(3, None)
+    tree.AddChild(node_1, node_3)
+    node_6 = SimpleTreeNode(6, None)
+    tree.AddChild(node_1, node_6)
+    node_5 = SimpleTreeNode(5, None)
+    tree.AddChild(node_2, node_5)
+    node_7 = SimpleTreeNode(7, None)
+    tree.AddChild(node_2, node_7)
+    node_4 = SimpleTreeNode(4, None)
+    tree.AddChild(node_3, node_4)
+    node_8 = SimpleTreeNode(8, None)
+    tree.AddChild(node_6, node_8)
+    node_9 = SimpleTreeNode(9, None)
+    tree.AddChild(node_8, node_9)
+    node_10 = SimpleTreeNode(10, None)
+    tree.AddChild(node_8, node_10)
+    nodes = [node_1, node_2, node_3, node_4, node_5, node_6, node_7, node_8, node_9, node_10]
+    return tree, nodes
+
+
+def assert_link_in(result, n1, n2):
+    for i in range(len(result) - 1):
+        if result[i] == n1 and result[i + 1] == n2:
+            return
+    raise AssertionError('Link is not in result')
+
+
+def test_even_trees(even_example):
+    tree, nodes = even_example
+
+    result = tree.EvenTrees()
+
+    assert_link_in(result, nodes[0], nodes[2])
+    assert_link_in(result, nodes[0], nodes[5])
+
+
+def test_even_tree_another(even_example):
+    tree, nodes = even_example
+    nodes.append(SimpleTreeNode(11, None))
+    tree.AddChild(nodes[3], nodes[10])
+    nodes.append(SimpleTreeNode(12, None))
+    tree.AddChild(nodes[2], nodes[11])
+
+    result = tree.EvenTrees()
+
+    assert_link_in(result, nodes[0], nodes[2])
+    assert_link_in(result, nodes[0], nodes[5])
+    assert_link_in(result, nodes[2], nodes[3])
