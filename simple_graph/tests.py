@@ -97,3 +97,67 @@ def test_remove_vertex(graph_2):
     assert 2 not in graph_values(graph_2)
     assert not graph_2.IsEdge(0, 1)
     assert not graph_2.IsEdge(1, 0)
+
+
+def is_correct_route(graph, route):
+    for i in range(len(route) - 1):
+        if not graph.IsEdge(route[i], route[i + 1]):
+            return False
+    return True
+
+
+@pytest.fixture
+def ds_graph():
+    graph = SimpleGraph(9)
+    graph.vertex = [Vertex(0) for _ in range(9)]
+    graph.AddEdge(0, 1)
+    graph.AddEdge(0, 2)
+    graph.AddEdge(1, 5)
+    graph.AddEdge(2, 3)
+    graph.AddEdge(2, 5)
+    graph.AddEdge(4, 5)
+    graph.AddEdge(5, 7)
+    graph.AddEdge(6, 7)
+    graph.AddEdge(4, 6)
+    return graph
+
+
+@pytest.mark.parametrize(
+    'route,is_correct',
+    [
+        ([0, 2, 5, 4], True),
+        ([3, 2, 0, 1], True),
+        ([3, 5, 4, 6], False),
+    ]
+)
+def test_is_correct_route(ds_graph, route, is_correct):
+    assert is_correct_route(ds_graph, route) == is_correct
+
+
+@pytest.mark.parametrize(
+    'vertex,edge_vertices', [
+        (0, {1, 2}),
+        (2, {0, 5, 3}),
+    ]
+)
+def test_get_edges(ds_graph, vertex, edge_vertices):
+    assert ds_graph.get_edges(vertex) == edge_vertices
+
+
+@pytest.mark.parametrize(
+    'v_from,v_to,route_exists',
+    [
+        (0, 7, True),
+        (3, 1, True),
+        (2, 6, True),
+        (0, 8, False),
+    ]
+)
+def test_depth_first_search(ds_graph, v_from, v_to, route_exists):
+    route = ds_graph.DepthFirstSearch(v_from, v_to)
+
+    if route_exists:
+        assert route
+        assert is_correct_route(ds_graph, route)
+    else:
+        assert not route

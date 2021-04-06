@@ -2,6 +2,7 @@ class Vertex:
 
     def __init__(self, val):
         self.Value = val
+        self.Hit = False
   
 class SimpleGraph:
 	
@@ -32,3 +33,34 @@ class SimpleGraph:
     def RemoveEdge(self, v1, v2):
         # удаление ребра между вершинами v1 и v2
         self.m_adjacency[v1][v2] = self.m_adjacency[v2][v1] = 0
+    
+    def DepthFirstSearch(self, VFrom, VTo):
+        # узлы задаются позициями в списке vertex
+        # возвращается список узлов -- путь из VFrom в VTo
+        # или [] если пути нету
+        stack = []
+        current_item = VFrom
+        self.visit(current_item)
+        stack.append(current_item)
+        while stack:
+            if self.IsEdge(current_item, VTo):
+                self.visit(VTo)
+                stack.append(VTo)
+                return stack
+            unvisitted_vertices = [v for v in self.get_edges(current_item) if not self.is_visited(v)]
+            if unvisitted_vertices:
+                current_item = unvisitted_vertices[0]
+                self.visit(current_item)
+                stack.append(current_item)
+                continue
+            stack.pop()
+        return stack
+    
+    def get_edges(self, v):
+        return {v2 for v2 in range(self.max_vertex) if self.m_adjacency[v][v2] == 1}
+    
+    def visit(self, v):
+        self.vertex[v].Hit = True
+    
+    def is_visited(self, v):
+        return self.vertex[v].Hit
