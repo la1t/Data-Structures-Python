@@ -109,7 +109,7 @@ class SimpleGraph:
         while current_vertex != v_from:
             current_vertex = routing[current_vertex]
             route_indexes.append(current_vertex)
-        return [self.vertex[i] for i in route_indexes]
+        return [self.vertex[i] for i in reversed(route_indexes)]
     
     def get_index(self, vertex):
         return self.vertex.index(vertex)

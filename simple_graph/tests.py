@@ -188,6 +188,8 @@ def test_breadth_first_search(ds_graph, v_from, v_to, route_exists):
 
     if route_exists:
         assert route
+        assert route[0] == ds_graph.vertex[v_from]
+        assert route[-1] == ds_graph.vertex[v_to]
         assert is_correct_route(ds_graph, route)
     else:
         assert not route
