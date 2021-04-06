@@ -38,6 +38,7 @@ class SimpleGraph:
         # узлы задаются позициями в списке vertex
         # возвращается список узлов -- путь из VFrom в VTo
         # или [] если пути нету
+        self.clear_vertices()
         stack = []
         current_item = VFrom
         self.visit(current_item)
@@ -64,3 +65,8 @@ class SimpleGraph:
     
     def is_visited(self, v):
         return self.vertex[v].Hit
+    
+    def clear_vertices(self):
+        for vertex in self.vertex:
+            if vertex is not None:
+                vertex.Hit = False
