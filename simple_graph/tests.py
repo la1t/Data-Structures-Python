@@ -161,3 +161,30 @@ def test_depth_first_search(ds_graph, v_from, v_to, route_exists):
         assert is_correct_route(ds_graph, route)
     else:
         assert not route
+
+
+def test_depth_first_search_if_v_from_equals_v_to(ds_graph):
+    route = ds_graph.DepthFirstSearch(0, 0)
+    
+    assert route != []
+    assert is_correct_route(ds_graph, route)
+    assert route != [0, 0]
+
+
+@pytest.mark.parametrize(
+    'v_from,v_to,route_exists',
+    [
+        (0, 7, True),
+        (3, 1, True),
+        (2, 6, True),
+        (0, 8, False),
+    ]
+)
+def test_breadth_first_search(ds_graph, v_from, v_to, route_exists):
+    route = ds_graph.BreadthFirstSearch(v_from, v_to)
+
+    if route_exists:
+        assert route
+        assert is_correct_route(ds_graph, route)
+    else:
+        assert not route

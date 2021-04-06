@@ -40,25 +40,57 @@ class SimpleGraph:
         # или [] если пути нету
         self.clear_vertices()
         stack = []
-        current_item = VFrom
-        self.visit(current_item)
-        stack.append(current_item)
-        while stack:
-            if self.IsEdge(current_item, VTo):
+        current_vertex = VFrom
+        while True:
+            self.visit(current_vertex)
+            stack.append(current_vertex)
+            if self.IsEdge(current_vertex, VTo):
                 self.visit(VTo)
                 stack.append(VTo)
                 return stack
-            unvisitted_vertices = [v for v in self.get_edges(current_item) if not self.is_visited(v)]
+            unvisitted_vertices = self.get_unvisited_edges(current_vertex)
             if unvisitted_vertices:
-                current_item = unvisitted_vertices[0]
-                self.visit(current_item)
-                stack.append(current_item)
+                current_vertex = unvisitted_vertices[0]
                 continue
             stack.pop()
-        return stack
+            if stack:
+                current_vertex = stack.pop()
+                continue
+            else:
+                return []
+    
+    def BreadthFirstSearch(self, VFrom, VTo):
+        # сохранение пути:
+        # - сохранять вместо вершин полный путь до этой вершины
+        # - держать отдельно словарь со всеми возможными путями
+        # я выберу второй вариант, потому что он более дешевый по памяти (не придется по нескольку
+        # раз хранить путь до одной вершины)
+        self.clear_vertices()
+        queue = []
+
+        # словарь, где ключ - вершина, в которую надо попасть, а значение —
+        # вершина, из которой нужно выдвигаться
+        routing = {}
+
+        current_vertex = VFrom
+        self.visit(VFrom)
+        while True:
+            for vertex in self.get_unvisited_edges(current_vertex):
+                self.visit(vertex)
+                routing[vertex] = current_vertex
+                if vertex == VTo:
+                    return self.build_route(routing, VFrom, VTo)
+                queue.append(vertex)
+            if queue:
+                current_vertex = queue.pop(0)
+                continue
+            return []
     
     def get_edges(self, v):
         return {v2 for v2 in range(self.max_vertex) if self.m_adjacency[v][v2] == 1}
+    
+    def get_unvisited_edges(self, v):
+        return [v for v in self.get_edges(v) if not self.is_visited(v)]
     
     def visit(self, v):
         self.vertex[v].Hit = True
@@ -70,3 +102,11 @@ class SimpleGraph:
         for vertex in self.vertex:
             if vertex is not None:
                 vertex.Hit = False
+    
+    def build_route(self, routing, v_from, v_to):
+        current_vertex = v_to
+        route = [current_vertex]
+        while current_vertex != v_from:
+            current_vertex = routing[current_vertex]
+            route.append(current_vertex)
+        return route
