@@ -101,7 +101,9 @@ def test_remove_vertex(graph_2):
 
 def is_correct_route(graph, route):
     for i in range(len(route) - 1):
-        if not graph.IsEdge(route[i], route[i + 1]):
+        origin = graph.get_index(route[i])
+        dest = graph.get_index(route[i + 1])
+        if not graph.IsEdge(origin, dest):
             return False
     return True
 
@@ -123,14 +125,15 @@ def ds_graph():
 
 
 @pytest.mark.parametrize(
-    'route,is_correct',
+    'route_indexes,is_correct',
     [
         ([0, 2, 5, 4], True),
         ([3, 2, 0, 1], True),
         ([3, 5, 4, 6], False),
     ]
 )
-def test_is_correct_route(ds_graph, route, is_correct):
+def test_is_correct_route(ds_graph, route_indexes, is_correct):
+    route = [ds_graph.vertex[i] for i in route_indexes]
     assert is_correct_route(ds_graph, route) == is_correct
 
 

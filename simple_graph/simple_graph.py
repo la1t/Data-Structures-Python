@@ -47,7 +47,7 @@ class SimpleGraph:
             if self.IsEdge(current_vertex, VTo):
                 self.visit(VTo)
                 stack.append(VTo)
-                return stack
+                return [self.vertex[v] for v in stack]
             unvisitted_vertices = self.get_unvisited_edges(current_vertex)
             if unvisitted_vertices:
                 current_vertex = unvisitted_vertices[0]
@@ -105,8 +105,11 @@ class SimpleGraph:
     
     def build_route(self, routing, v_from, v_to):
         current_vertex = v_to
-        route = [current_vertex]
+        route_indexes = [current_vertex]
         while current_vertex != v_from:
             current_vertex = routing[current_vertex]
-            route.append(current_vertex)
-        return route
+            route_indexes.append(current_vertex)
+        return [self.vertex[i] for i in route_indexes]
+    
+    def get_index(self, vertex):
+        return self.vertex.index(vertex)
