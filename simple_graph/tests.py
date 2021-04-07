@@ -193,3 +193,45 @@ def test_breadth_first_search(ds_graph, v_from, v_to, route_exists):
         assert is_correct_route(ds_graph, route)
     else:
         assert not route
+
+
+@pytest.fixture
+def weak_graph():
+    graph = SimpleGraph(9)
+    graph.vertex = [Vertex(0) for _ in range(9)]
+    graph.AddEdge(0, 1)
+    graph.AddEdge(0, 2)
+    graph.AddEdge(1, 2)
+    graph.AddEdge(1, 3)
+    graph.AddEdge(2, 3)
+    graph.AddEdge(3, 4)
+    graph.AddEdge(2, 5)
+    graph.AddEdge(4, 5)
+    graph.AddEdge(5, 6)
+    graph.AddEdge(6, 7)
+    graph.AddEdge(5, 7)
+    graph.AddEdge(7, 8)
+    return graph
+
+
+def test_weak_vertices_1(weak_graph):
+    result = weak_graph.WeakVertices()
+
+    assert set(result) == {weak_graph.vertex[4], weak_graph.vertex[8]}
+
+
+def test_weak_vertices_2(weak_graph):
+    weak_graph.AddEdge(2, 4)
+
+    result = weak_graph.WeakVertices()
+
+    assert set(result) == {weak_graph.vertex[8]}
+
+
+def test_weak_vertices_3(weak_graph):
+    weak_graph.AddEdge(2, 4)
+    weak_graph.AddEdge(5, 8)
+
+    result = weak_graph.WeakVertices()
+
+    assert result == []

@@ -113,3 +113,35 @@ class SimpleGraph:
     
     def get_index(self, vertex):
         return self.vertex.index(vertex)
+    
+    def WeakVertices(self):
+        # будем помечать все найденные вершины, входящие в треугольники, чтобы не посещать их повторно
+        self.clear_vertices()
+
+        result_indexes = []
+        for v in range(self.max_vertex):
+            if self.is_visited(v):
+                continue
+
+            triangles = self.get_first_triangles(v)
+            if not triangles:
+                result_indexes.append(v)
+            else:
+                for v1, v2, v3 in triangles:
+                    self.visit(v1)
+                    self.visit(v2)
+                    self.visit(v3)
+        
+        return [self.vertex[index] for index in result_indexes]
+                
+    
+    def get_first_triangles(self, v):
+        v_edges = self.get_edges(v)
+        for ev1 in v_edges:
+            ev1_edges = self.get_edges(ev1)
+            common_edges = set(ev1_edges).intersection(v_edges)
+            if common_edges:
+                return [
+                    (v, ev1, ev2) for ev2 in common_edges
+                ]
+        return []
